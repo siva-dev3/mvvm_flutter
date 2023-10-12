@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm/src/utils/routes/routes.dart';
 import 'package:mvvm/src/utils/routes/routes_name.dart';
+import 'package:mvvm/src/utils/utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: GestureDetector(
               onTap: (){
 
+                Utils.toastMessage("go to login");
                 Navigator.pushNamed(context, RoutesName.loginScreen);
 
               },
