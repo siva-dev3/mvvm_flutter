@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm/src/utils/routes/routes.dart';
 import 'package:mvvm/src/utils/routes/routes_name.dart';
-import 'package:mvvm/src/view/home_screen.dart';
+import 'package:mvvm/src/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +14,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return const MaterialApp(
-      initialRoute: RoutesName.homeScreen,
-      onGenerateRoute: Routes.generateRoute,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) => AuthModel()
+        )
+      ],
+      child: const MaterialApp(
+        initialRoute: RoutesName.loginScreen,
+        onGenerateRoute: Routes.generateRoute,
+      ),
     );
 
   }

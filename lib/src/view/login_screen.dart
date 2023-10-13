@@ -1,8 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:mvvm/src/res/components/round_btn.dart';
 import 'package:mvvm/src/utils/utils.dart';
+import 'package:mvvm/src/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,7 +20,22 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode passFocusNode = FocusNode();
 
   @override
+  void dispose() {
+
+    super.dispose();
+
+    _passController.dispose();
+    _emailController.dispose();
+    _passController.dispose();
+    emailFocusNode.dispose();
+    passFocusNode.dispose();
+
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    final authModel = Provider.of<AuthModel>(context);
 
     return Scaffold(
       appBar: AppBar(),
@@ -77,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           RoundButton(
               title: "Login",
+              loading: authModel.loading,
               onPressed: (){
 
                 if(_emailController.text.isEmpty){
@@ -93,7 +109,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 }else{
 
-                  log("api hit");
+                  Map data = {
+                    'email' : _emailController.text.toString(),
+                    'password' : _passController.text.toString()
+                  };
+
+                  authModel.loginApi(data, context);
 
                 }
 

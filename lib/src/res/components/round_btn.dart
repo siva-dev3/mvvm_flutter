@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm/src/res/color.dart';
+import 'package:mvvm/src/res/colors/color.dart';
 
 class RoundButton extends StatelessWidget {
 
@@ -28,7 +28,9 @@ class RoundButton extends StatelessWidget {
         width: 200,
         child: Center(
           child: loading ?
-              const CircleAvatar() :
+              const CircularProgressIndicator(
+                  color: AppColor.whiteColor
+              ) :
           Text(
             title,
             style: const TextStyle(
