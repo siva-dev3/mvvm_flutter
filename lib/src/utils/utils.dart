@@ -22,7 +22,7 @@ class Utils{
 
   }
 
-  static flushBarMessage(String title, String message, BuildContext context){
+  static flushBarMessage(String title, String message, BuildContext context, Color bgColor){
     
     showFlushbar(
         context: context,
@@ -38,7 +38,7 @@ class Utils{
           flushbarPosition: FlushbarPosition.TOP,
           positionOffset: 20,
           title: title,
-          backgroundColor: Colors.red,
+          backgroundColor: bgColor,
           duration: const Duration(
               seconds: 3
           ),

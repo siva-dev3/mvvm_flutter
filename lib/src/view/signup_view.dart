@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm/src/res/components/round_btn.dart';
+import 'package:mvvm/src/utils/routes/routes_name.dart';
 import 'package:mvvm/src/utils/utils.dart';
 import 'package:mvvm/src/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpState extends State<SignUp> {
 
   final ValueNotifier<bool> _passwordObserver = ValueNotifier<bool>(true);
   final TextEditingController _emailController = TextEditingController();
@@ -48,15 +49,19 @@ class _LoginScreenState extends State<LoginScreen> {
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
             decoration: const InputDecoration(
-              hintText: "email",
-              labelText: "Email",
-              prefixIcon: Icon(
-                Icons.alternate_email
-              )
+                hintText: "email",
+                labelText: "Email",
+                prefixIcon: Icon(
+                    Icons.alternate_email
+                )
             ),
             onFieldSubmitted: (value){
 
-              Utils.fieldFocusChange(context, emailFocusNode, passFocusNode);
+              Utils.fieldFocusChange(
+                  context,
+                  emailFocusNode,
+                  passFocusNode
+              );
 
             },
           ),
@@ -91,21 +96,21 @@ class _LoginScreenState extends State<LoginScreen> {
               }
           ),
           RoundButton(
-              title: "Login",
-              loading: authModel.loading,
+              title: "Sign up",
+              loading: authModel.signupLoading,
               onPressed: (){
 
                 if(_emailController.text.isEmpty){
 
-                  Utils.flushBarMessage("Error", "Please enter Email", context);
+                  Utils.flushBarMessage("Error", "Please enter Email", context, Colors.red);
 
                 }else if(_passController.text.isEmpty){
 
-                  Utils.flushBarMessage("Error", "Please enter password", context);
+                  Utils.flushBarMessage("Error", "Please enter password", context, Colors.red);
 
                 }else if(_passController.text.length < 6){
 
-                  Utils.flushBarMessage("Error", "Please must be 8 characters", context);
+                  Utils.flushBarMessage("Error", "Please must be 8 characters", context, Colors.red);
 
                 }else{
 
@@ -114,12 +119,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     'password' : _passController.text.toString()
                   };
 
-                  authModel.loginApi(data, context);
+                  authModel.signupApi(data, context);
 
                 }
 
               }
 
+          ),
+          InkWell(
+            onTap: (){
+
+              Navigator.pushNamed(context, RoutesName.signupScreen);
+
+            },
+            child: const Text(
+                "Already have an account.. Sign up"
+            ),
           )
         ],
       ),

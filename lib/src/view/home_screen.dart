@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mvvm/src/model/user_model.dart';
 import 'package:mvvm/src/utils/routes/routes_name.dart';
 import 'package:mvvm/src/utils/utils.dart';
+import 'package:mvvm/src/view_model/user_view_model.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,6 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
+    final userPreference = Provider.of<UserViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -22,12 +27,15 @@ class _HomeScreenState extends State<HomeScreen> {
             child: GestureDetector(
               onTap: (){
 
-                Utils.toastMessage("go to login");
-                Navigator.pushNamed(context, RoutesName.loginScreen);
+                userPreference.remove().then((value){
+
+                  Navigator.pushNamed(context, RoutesName.loginScreen);
+
+                });
 
               },
               child: const Text(
-                "Login"
+                "Log out"
               ),
             ),
           )
