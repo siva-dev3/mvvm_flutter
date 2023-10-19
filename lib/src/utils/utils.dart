@@ -5,6 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class Utils{
 
+  ///functions
+
   static void fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus){
 
     currentFocus.unfocus();

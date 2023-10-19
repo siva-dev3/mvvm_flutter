@@ -13,7 +13,7 @@ class SplashServices{
 
     getUserData().then((value) async {
 
-      if(value.token == null || value.token == '' || value.token == "null"){
+      if(value.token.toString() == null || value.token.toString() == '' || value.token.toString() == "null"){
 
         await Future.delayed(
             const Duration(
