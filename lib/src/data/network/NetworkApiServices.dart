@@ -35,7 +35,7 @@ class NetworkApiService extends BaseApiService{
 
       final response = await http.post(
           Uri.parse(url),
-          body: data
+          body: jsonEncode(data)
       ).timeout(const Duration(seconds: 15));
 
       responseJSON = returnResponse(response);
